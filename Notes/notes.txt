@@ -1,0 +1,68 @@
+# for cross platform we use #!/usr/bin/python
+# same goes for modules, needed in unix as in unix no .py extension, 
+# but in windows it is treated as comment as .py files are associated with python interpreter 
+# in module there are no cal to functions, only functions are defined
+
+# everytime module is modified,
+# we must do a import importlib and importlib.module(modulename)
+# otherwise changes will not be shown 
+# reload just gets new changes, will still shows old symbols even though they are deleted.
+# In 2.x there is no importlib.reload(modulename), just reload(modulename)
+# del(modulename.symbolname removes the old symbols explictly,
+# otherwise they are deleted when interpreter is shutdown
+
+# system command type displays the text within the .py file
+# use os.system(command) to give commands to system
+# use os.chdir to change the current directory
+# if module needs to imported from another folder, add to sys.path
+# if there are two or more occurences of the module name in different paths,
+# then the first one encountered will be imported
+# if you want the second occurence to be imported, then path should be added in beginning
+
+# Import 'Package name' will import the entire directory,
+# and shows the sub packages and modules present in it that can be used.
+
+# In python and perl, the first parameter of the method
+# of the class is the object of the class 
+
+# In OOPs __variable__ is a private variable
+# _variable_ is protected 
+
+# for debugging use python -m pdb file.py 
+# condition brno condition
+# commands breakpoint number
+# p variable
+# end
+
+# FOR UNIX BASED Systems
+# PATH=$PATH:.
+# chmod +x filename 
+# add #!/usr/bin/python into the file 
+
+# zombie state of process- process completed execution but still in process table
+# import pdb, pdb.set_trace() in child/parent not in both
+# wait() comes out as soon as one of the child process completes 
+
+# IPC using pipe 
+# when pipe contents are read, they are removed
+# for named pipes , from terminal 
+# $ mknode mypipe p
+# $ cat ps.py > mypipe
+# in the other terminal/process do cat mypipe 
+
+# in python
+# import os
+# import stat
+# os.mknod("pipename",666|stat.S_FIFO) #creates pipe
+
+# NETWORKING
+# Sockets- unix - for IPC
+           Inet - stream- tcp/ip
+                  datastream - udp/ip
+#  
+# AF_UNIX-SOCK_STREAM
+# AF_INET-SOCK_DGRAM
+
+
+  
+               

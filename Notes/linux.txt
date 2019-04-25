@@ -1,0 +1,127 @@
+
+#program 1
+
+'''
+#!/usr/bin/python
+import os 
+ret = os.fork()
+if(0==ret):
+    print "child"
+else:
+    print "parent"
+ 
+#print"Good Morning"
+'''
+
+
+
+
+#prog 2 - unnamed pipe, for IPC between related processes
+
+'''
+#!/usr/bin/python
+import os
+(r,w)=os.pipe()
+ret=os.fork()
+if(ret==0):
+    os.write(w,"Hi good morning from child") #add before string for 3.x version
+else:
+    msg=os.read(r,100)
+    print msg
+'''
+
+
+#prog 3 - socket 1
+
+'''
+!/usr/bin/python
+import os
+import socket
+sd = socket.socket(socket.AF_UNIX,socket.SOCK_DGRAM)
+os.unlink("mysock1")
+sd.bind("mysock1")
+(data,address)=sd.recvfrom(1024)
+print(data)
+sd.sendto('thanks for the call',address)
+'''
+
+#prog 4 - socket 2
+'''
+#!/usr/bin/python
+import os
+import socket
+#print "Socket Programs"
+sd = socket.socket(socket.AF_UNIX,socket.SOCK_DGRAM)
+os.unlink("mysock2")
+sd.bind("mysock2")
+sd.sendto('hello how are you ? ','mysock1')
+(data,address)=sd.recvfrom(1024)
+print data
+'''
+
+#prog 5 - server socket 
+'''
+#!/usr/bin/python
+import os
+import socket
+sd = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
+sd.bind(('192.168.230.128',12001))
+sd.listen(5)
+(sd1,addr)=sd.accept()
+data=sd1.recv(1024)
+sd1.send('thanks for the call')
+print data
+
+'''
+#prog 6 - client socket 
+'''
+#!/usr/bin/python
+import os
+import socket
+sd = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
+sd.connect(('192.168.230.128',12001))
+sd.send('hello how are you ?')
+(data)=sd.recvfrom(1024)
+print data
+''' 
+
+#prog 7 - multithreading 
+'''
+#!/usr/bin/python
+
+import threading
+import time
+
+exitFlag = 0
+
+class myThread (threading.Thread):
+   def __init__(self, threadID, name, counter):
+      threading.Thread.__init__(self)
+      self.threadID = threadID
+      self.name = name
+      self.counter = counter
+   def run(self):
+      print( "Starting " + self.name)
+      print_time(self.name, 5, self.counter)
+      print( "Exiting " + self.name)
+
+def print_time(threadName, counter, delay):
+   while counter:
+      if exitFlag:
+         threadName.exit()
+      time.sleep(delay)
+      print( "%s: %s" % (threadName, time.ctime(time.time())))
+      counter -= 1
+
+# Create new threads
+thread1 = myThread(1, "Thread-1", 1)
+thread2 = myThread(2, "Thread-2", 2)
+
+# Start new Threads
+thread1.start()
+thread2.start()
+
+print( "Exiting Main Thread")
+'''
+
+
